@@ -50,7 +50,7 @@ type Market @entity {
     "Underlying token symbol"
     underlyingSymbol: String!
     "Underlying token price in USD"
-    underlyingPriceUSD: BigInt!
+    underlyingPrice: BigInt!
     "Underlying token decimal length"
     underlyingDecimals: Int!
 
@@ -63,6 +63,10 @@ type Market @entity {
     borrowIndex: BigInt!
     "The factor determining interest that goes to reserves"
     reserveFactor: BigInt!
+    "Number of borrowers active in the market"
+    numberOfBorrowers: Int!
+    "Number of suppliers active in the market"
+    numberOfSuppliers: Int!
 }
 
 """

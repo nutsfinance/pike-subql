@@ -44,7 +44,7 @@ export class Market implements Entity {
 
     public underlyingSymbol: string;
 
-    public underlyingPriceUSD: bigint;
+    public underlyingPrice: bigint;
 
     public underlyingDecimals: number;
 
@@ -55,6 +55,10 @@ export class Market implements Entity {
     public borrowIndex: bigint;
 
     public reserveFactor: bigint;
+
+    public numberOfBorrowers: number;
+
+    public numberOfSuppliers: number;
 
 
     async save(): Promise<void>{
