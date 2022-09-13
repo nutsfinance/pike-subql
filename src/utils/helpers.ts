@@ -3,12 +3,12 @@ import { Account, AccountCToken, AccountCTokenTransaction } from "../types/model
 export let zeroBD = BigInt(0)
 
 export async function createAccount(accountID: string): Promise<Account> {
-  let account = new Account(accountID)
-  account.countLiquidated = 0
-  account.countLiquidator = 0
-  account.hasBorrowed = false
-  await account.save()
-  return account
+    let account = new Account(accountID);
+    account.countLiquidated = 0;
+    account.countLiquidator = 0;
+    account.hasBorrowed = false;
+    await account.save();
+    return account;
 }
 
 export async function updateCommonCTokenStats(marketId: string, marketSymbol: string, accountId: string,
