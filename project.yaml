@@ -1,0 +1,70 @@
+specVersion: 1.0.0
+name: acala-evm-starter
+version: 0.0.1
+runner:
+  node:
+    name: '@subql/node'
+    version: '*'
+  query:
+    name: '@subql/query'
+    version: '*'
+description: A basic Acala EVM example project with an event and call handler. Read more about this at https://university.subquery.network/build/substrate-evm.html
+repository: https://github.com/subquery/acala-evm-starter
+schema:
+  file: ./schema.graphql
+network:
+  chainId: '0xfc41b9bd8ef8fe53d58c7ea67c794c7ec9a73daf05e6d54b14ff6342c99ba64c'
+  endpoint: wss://acala-polkadot.api.onfinality.io/public-ws
+  # Dictionary not currently supported
+  # dictionary: https://api.subquery.network/sq/subquery/moonriver-dictionary
+  chaintypes:
+    file: ./dist/chaintypes.js
+dataSources:
+  - kind: substrate/AcalaEvm
+    startBlock: 1571687
+    processor:
+      file: ./node_modules/@subql/acala-evm-processor/dist/bundle.js
+      options:
+        abi: comptroller
+        address: '0x1aA5d813bA2BC2678b41Bd6AC8798909304a181f' # Comptroller
+    assets:
+      comptroller:
+        file: ./src/abis/Comptroller.abi.json
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleMarketListed
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - MarketListed(address)
+        - handler: handleMarketEntered
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - MarketEntered(address,address)
+        - handler: handleMarketExited
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - MarketExited(address,address)
+        - handler: handleNewCloseFactor
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - NewCloseFactor(uint256,uint256)
+        - handler: handleNewCollateralFactor
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - NewCollateralFactor(address,uint256,uint256)
+        - handler: handleNewLiquidationIncentive
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - NewLiquidationIncentiveEventArgs(uint256,uint256)
+        - handler: handleNewPriceOracle
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - NewPriceOracle(address,address)
