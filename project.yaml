@@ -8,8 +8,8 @@ runner:
   query:
     name: '@subql/query'
     version: '*'
-description: A basic Acala EVM example project with an event and call handler. Read more about this at https://university.subquery.network/build/substrate-evm.html
-repository: https://github.com/subquery/acala-evm-starter
+description: Subquery Server for Pike Protocol
+repository: https://github.com/nutsfinance/pike-subql
 schema:
   file: ./schema.graphql
 network:
@@ -21,7 +21,7 @@ network:
     file: ./dist/chaintypes.js
 dataSources:
   - kind: substrate/AcalaEvm
-    startBlock: 1571687
+    startBlock: 1605797
     processor:
       file: ./node_modules/@subql/acala-evm-processor/dist/bundle.js
       options:

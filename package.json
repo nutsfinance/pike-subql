@@ -19,14 +19,14 @@
   "author": "SubQuery Pte. Limited",
   "license": "Apache-2.0",
   "dependencies": {
-    "@acala-network/type-definitions": "^4.1.1",
+    "@acala-network/type-definitions": "^4.1.5",
     "@subql/acala-evm-processor": "dev",
     "abab": "^2.0.6",
     "atob": "^2.1.2",
     "ethers": "^5.7.0"
   },
   "devDependencies": {
-    "@polkadot/api": "^8",
+    "@polkadot/api": "^9",
     "@subql/cli": "latest",
     "@subql/types": "latest",
     "typescript": "^4.4.4"

@@ -1,9 +1,9 @@
 /* eslint-disable prefer-const */ // to satisfy AS compiler
 
 import { AcalaEvmEvent } from "@subql/acala-evm-processor";
-import { updateCommonCTokenStats } from "../utils/helpers";
 import { BigNumber } from "ethers";
 import { getAccount, getComptroller, getMarket } from "../utils/records";
+import { updateCommonCTokenStats } from "../utils/helpers";
 
 // Setup types from ABI
 type MarketListedEventArgs = [string] & {cToken: string};

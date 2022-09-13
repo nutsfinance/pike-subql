@@ -11,77 +11,51 @@ export async function createAccount(accountID: string): Promise<Account> {
   return account
 }
 
-export async function updateCommonCTokenStats(
-  marketID: string,
-  marketSymbol: string,
-  accountID: string,
-  tx_hash: string,
-  timestamp: BigInt,
-  blockNumber: number,
-  logIndex: number,
-): Promise<AccountCToken> {
-  let cTokenStatsID = marketID.concat('-').concat(accountID)
-  let cTokenStats = await AccountCToken.get(cTokenStatsID)
-  if (cTokenStats == null) {
-    cTokenStats = createAccountCToken(cTokenStatsID, marketSymbol, accountID, marketID)
-  }
-  await getOrCreateAccountCTokenTransaction(
-    cTokenStatsID,
-    tx_hash,
-    timestamp,
-    blockNumber,
-    logIndex,
-  )
-  cTokenStats.accrualBlockNumber = BigInt(+blockNumber);
-  return cTokenStats as AccountCToken
+export async function updateCommonCTokenStats(marketId: string, marketSymbol: string, accountId: string,
+    tx_hash: string, timestamp: BigInt, blockNumber: number, logIndex: number): Promise<AccountCToken> {
+    const cTokenStatsId = `${marketId}-${accountId}`;
+    let cTokenStats = await AccountCToken.get(cTokenStatsId);
+    if (!cTokenStats) {
+      cTokenStats = await createAccountCToken(cTokenStatsId, marketSymbol, accountId, marketId);
+    }
+
+    await getOrCreateAccountCTokenTransaction(cTokenStatsId, tx_hash, timestamp, blockNumber, logIndex)
+    cTokenStats.accrualBlockNumber = BigInt(+blockNumber);
+    return cTokenStats;
 }
 
-export function createAccountCToken(
-  cTokenStatsID: string,
-  symbol: string,
-  account: string,
-  marketID: string,
-): AccountCToken {
-  let cTokenStats = new AccountCToken(cTokenStatsID)
-  cTokenStats.symbol = symbol
-  cTokenStats.marketId = marketID
-  cTokenStats.accountId = account
-  cTokenStats.accrualBlockNumber = BigInt(0)
-  cTokenStats.cTokenBalance = zeroBD
-  cTokenStats.totalUnderlyingSupplied = zeroBD
-  cTokenStats.totalUnderlyingRedeemed = zeroBD
-  cTokenStats.accountBorrowIndex = zeroBD
-  cTokenStats.totalUnderlyingBorrowed = zeroBD
-  cTokenStats.totalUnderlyingRepaid = zeroBD
-  cTokenStats.storedBorrowBalance = zeroBD
-  cTokenStats.enteredMarket = false
-  return cTokenStats
+export async function createAccountCToken(cTokenStatsId: string, symbol: string, account: string, marketId: string): Promise<AccountCToken> {
+    let cTokenStats = new AccountCToken(cTokenStatsId);
+    cTokenStats.symbol = symbol;
+    cTokenStats.marketId = marketId;
+    cTokenStats.accountId = account;
+    cTokenStats.accrualBlockNumber = BigInt(0);
+    cTokenStats.cTokenBalance = zeroBD;
+    cTokenStats.totalUnderlyingSupplied = zeroBD;
+    cTokenStats.totalUnderlyingRedeemed = zeroBD;
+    cTokenStats.accountBorrowIndex = zeroBD;
+    cTokenStats.totalUnderlyingBorrowed = zeroBD;
+    cTokenStats.totalUnderlyingRepaid = zeroBD;
+    cTokenStats.storedBorrowBalance = zeroBD;
+    cTokenStats.enteredMarket = false;
+    await cTokenStats.save();
+
+    return cTokenStats;
 }
 
 
-export async function getOrCreateAccountCTokenTransaction(
-  accountID: string,
-  tx_hash: string,
-  timestamp: BigInt,
-  block: number,
-  logIndex: number,
-): Promise<AccountCTokenTransaction> {
-  let id = accountID
-    .concat('-')
-    .concat(tx_hash)
-    .concat('-')
-    .concat(logIndex.toString())
-  let transaction = await AccountCTokenTransaction.get(id)
+export async function getOrCreateAccountCTokenTransaction(accountId: string, tx_hash: string, timestamp: BigInt, block: number, logIndex: number): Promise<AccountCTokenTransaction> {
+    const id = `${accountId}-${tx_hash}-${logIndex}`;
+    let transaction = await AccountCTokenTransaction.get(id);
+    if (!transaction) {
+      transaction = new AccountCTokenTransaction(id);
+      transaction.accountId = accountId;
+      transaction.tx_hash = tx_hash;
+      transaction.timestamp = BigInt(timestamp.toString());
+      transaction.block = BigInt(+block);
+      transaction.logIndex = BigInt(+logIndex);
+      await transaction.save();
+    }
 
-  if (transaction == undefined) {
-    transaction = new AccountCTokenTransaction(id)
-    transaction.accountId = accountID
-    transaction.tx_hash = tx_hash
-    transaction.timestamp = BigInt(+timestamp)
-    transaction.block = BigInt(+block)
-    transaction.logIndex = BigInt(+logIndex)
-    await transaction.save()
-  }
-
-  return transaction as AccountCTokenTransaction
+    return transaction;
 }
