@@ -6,3 +6,4 @@ if (global.atob === undefined) {
 import "@polkadot/api-augment";
 
 export * from './mappings/comptroller'
+export * from './mappings/ctoken';

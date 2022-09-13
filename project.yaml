@@ -68,3 +68,51 @@ dataSources:
           filter:
             topics:
               - NewPriceOracle(address,address)
+  - kind: substrate/AcalaEvm
+    startBlock: 1605797
+    processor:
+      file: ./node_modules/@subql/acala-evm-processor/dist/bundle.js
+      options:
+        abi: ctoken
+        address: '0xde964267C24a408725A61AC2B3Fd4E95243Bf197' # pDOT
+    assets:
+      comptroller:
+        file: ./src/abis/CToken.abi.json
+    mapping:
+      file: ./dist/index.js
+      handlers:
+        - handler: handleBorrow
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - Borrow(address,uint256,uint256,uint256)
+        - handler: handleRepayBorrow
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - RepayBorrow(address,address,uint256,uint256,uint256)
+        - handler: handleLiquidateBorrow
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - LiquidateBorrow(address,address,uint256,address,uint256)
+        - handler: handleTransfer
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - Transfer(address,address,uint256)
+        - handler: handleAccrueInterest
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - AccrueInterest(uint256,uint256,uint256,uint256)
+        - handler: handleNewReserveFactor
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - NewReserveFactor(address,address)
+        - handler: handleNewInterestRateModel
+          kind: substrate/AcalaEvmEvent
+          filter:
+            topics:
+              - NewInterestRateModel(address,address)
