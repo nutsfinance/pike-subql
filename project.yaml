@@ -21,7 +21,7 @@ network:
     file: ./dist/chaintypes.js
 dataSources:
   - kind: substrate/AcalaEvm
-    startBlock: 1605797
+    startBlock: 1571687
     processor:
       file: ./node_modules/@subql/acala-evm-processor/dist/bundle.js
       options:
@@ -69,7 +69,7 @@ dataSources:
             topics:
               - NewPriceOracle(address,address)
   - kind: substrate/AcalaEvm
-    startBlock: 1605797
+    startBlock: 1571687
     processor:
       file: ./node_modules/@subql/acala-evm-processor/dist/bundle.js
       options:
@@ -117,7 +117,7 @@ dataSources:
             topics:
               - NewInterestRateModel(address,address)
   - kind: substrate/AcalaEvm
-    startBlock: 1605797
+    startBlock: 1571687
     processor:
       file: ./node_modules/@subql/acala-evm-processor/dist/bundle.js
       options:
@@ -165,7 +165,7 @@ dataSources:
             topics:
               - NewInterestRateModel(address,address)
   - kind: substrate/AcalaEvm
-    startBlock: 1605797
+    startBlock: 1571687
     processor:
       file: ./node_modules/@subql/acala-evm-processor/dist/bundle.js
       options:
@@ -213,7 +213,7 @@ dataSources:
             topics:
               - NewInterestRateModel(address,address)
   - kind: substrate/AcalaEvm
-    startBlock: 1605797
+    startBlock: 1571687
     processor:
       file: ./node_modules/@subql/acala-evm-processor/dist/bundle.js
       options:

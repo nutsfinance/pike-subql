@@ -31,7 +31,7 @@ export async function handleMarketEntered(event: AcalaEvmEvent<MarketEnteredEven
         market.symbol,
         account.id,
         event.transactionHash,
-        BigInt(event.blockTimestamp.getTime()),
+        event.blockTimestamp,
         event.blockNumber,
         event.logIndex,
     );
@@ -51,7 +51,7 @@ export async function handleMarketExited(event: AcalaEvmEvent<MarketExitedEventA
         market.symbol,
         account.id,
         event.transactionHash,
-        BigInt(event.blockTimestamp.getTime()),
+        event.blockTimestamp,
         event.blockNumber,
         event.logIndex,
     );

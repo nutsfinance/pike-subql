@@ -24,7 +24,7 @@ export class RepayEvent implements Entity {
 
     public blockNumber: number;
 
-    public blockTime: number;
+    public blockTime: Date;
 
     public underlyingSymbol: string;
 

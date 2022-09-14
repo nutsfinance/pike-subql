@@ -20,7 +20,7 @@ export class AccountCTokenTransaction implements Entity {
 
     public tx_hash: string;
 
-    public timestamp: bigint;
+    public timestamp: Date;
 
     public block: bigint;
 

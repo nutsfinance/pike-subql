@@ -36,7 +36,7 @@ export async function handleBorrow(event: AcalaEvmEvent<BorrowEventArgs>): Promi
     market.symbol,
     account.id,
     event.transactionHash,
-    BigInt(event.blockTimestamp.getTime()),
+    event.blockTimestamp,
     event.blockNumber,
     event.logIndex,
   );
@@ -85,7 +85,7 @@ export async function handleRepayBorrow(event: AcalaEvmEvent<RepayBorrowEventArg
     market.symbol,
     account.id,
     event.transactionHash,
-    BigInt(event.blockTimestamp.getTime()),
+    event.blockTimestamp,
     event.blockNumber,
     event.logIndex,
   );
@@ -150,7 +150,7 @@ export async function handleTransfer(event: AcalaEvmEvent<TransferEventArgs>): P
   // with normal transfers, since mint, redeem, and seize transfers will already run updateMarket()
   let market = await getMarket(event.address);
   if (market.accrualBlockNumber != event.blockNumber) {
-    market = await updateMarket(event.address, event.blockNumber, event.blockTimestamp.getTime());
+    market = await updateMarket(event.address, event.blockNumber, event.blockTimestamp);
   }
 
   const amountUnderlying = market.exchangeRate * event.args.amount.toBigInt();
@@ -168,7 +168,7 @@ export async function handleTransfer(event: AcalaEvmEvent<TransferEventArgs>): P
       market.symbol,
       accountFromId,
       event.transactionHash,
-      BigInt(event.blockTimestamp.getTime()),
+      event.blockTimestamp,
       event.blockNumber,
       event.logIndex,
     );
@@ -200,7 +200,7 @@ export async function handleTransfer(event: AcalaEvmEvent<TransferEventArgs>): P
       market.symbol,
       accountToId,
       event.transactionHash,
-      BigInt(event.blockTimestamp.getTime()),
+      event.blockTimestamp,
       event.blockNumber,
       event.logIndex,
     )
@@ -226,7 +226,7 @@ export async function handleTransfer(event: AcalaEvmEvent<TransferEventArgs>): P
 }
 
 export async function handleAccrueInterest(event: AcalaEvmEvent): Promise<void> {
-  await updateMarket(event.address, event.blockNumber, event.blockTimestamp.getTime());
+  await updateMarket(event.address, event.blockNumber, event.blockTimestamp);
 }
 
 export async function handleNewReserveFactor(event: AcalaEvmEvent<NewReserveFactorEventArgs>): Promise<void> {

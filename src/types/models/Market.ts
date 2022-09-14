@@ -50,7 +50,7 @@ export class Market implements Entity {
 
     public accrualBlockNumber: number;
 
-    public blockTimestamp: number;
+    public blockTimestamp: Date;
 
     public borrowIndex: bigint;
 

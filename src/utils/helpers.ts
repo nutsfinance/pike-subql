@@ -17,7 +17,7 @@ export async function createAccount(accountID: string): Promise<Account> {
 }
 
 export async function updateCommonCTokenStats(marketId: string, marketSymbol: string, accountId: string,
-    tx_hash: string, timestamp: BigInt, blockNumber: number, logIndex: number): Promise<AccountCToken> {
+    tx_hash: string, timestamp: Date, blockNumber: number, logIndex: number): Promise<AccountCToken> {
     const cTokenStatsId = `${marketId}-${accountId}`;
     let cTokenStats = await AccountCToken.get(cTokenStatsId);
     if (!cTokenStats) {
@@ -49,14 +49,14 @@ export async function createAccountCToken(cTokenStatsId: string, symbol: string,
 }
 
 
-export async function getOrCreateAccountCTokenTransaction(accountId: string, tx_hash: string, timestamp: BigInt, block: number, logIndex: number): Promise<AccountCTokenTransaction> {
+export async function getOrCreateAccountCTokenTransaction(accountId: string, tx_hash: string, timestamp: Date, block: number, logIndex: number): Promise<AccountCTokenTransaction> {
     const id = `${accountId}-${tx_hash}-${logIndex}`;
     let transaction = await AccountCTokenTransaction.get(id);
     if (!transaction) {
       transaction = new AccountCTokenTransaction(id);
       transaction.accountId = accountId;
       transaction.tx_hash = tx_hash;
-      transaction.timestamp = BigInt(timestamp.toString());
+      transaction.timestamp = timestamp;
       transaction.block = BigInt(+block);
       transaction.logIndex = BigInt(+logIndex);
       await transaction.save();
@@ -73,7 +73,7 @@ export async function getTokenPrice(marketId: string): Promise<bigint> {
   return (await priceOracle.getUnderlyingPrice(marketId)).toBigInt();
 }
 
-export async function updateMarket(marketId: string, blockNumber: number, blockTimestamp: number): Promise<Market> {
+export async function updateMarket(marketId: string, blockNumber: number, blockTimestamp: Date): Promise<Market> {
   const market = await getMarket(marketId);
   // Only updateMarket if it has not been updated this block
   if (market.accrualBlockNumber === blockNumber)  return market;

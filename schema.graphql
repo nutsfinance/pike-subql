@@ -58,7 +58,7 @@ type Market @entity {
     "Block the market is updated to"
     accrualBlockNumber: Int!
     "Timestamp the market was most recently updated"
-    blockTimestamp: Int!
+    blockTimestamp: Date!
     "The history of the markets borrow index return (Think S&P 500)"
     borrowIndex: BigInt!
     "The factor determining interest that goes to reserves"
@@ -161,7 +161,7 @@ type AccountCTokenTransaction @entity {
 
   tx_hash: Bytes!
 
-  timestamp: BigInt!
+  timestamp: Date!
 
   block: BigInt!
 
@@ -184,7 +184,7 @@ interface CTokenTransfer {
     "Block number"
     blockNumber: Int!
     "Block time"
-    blockTime: Int!
+    blockTime: Date!
     "Symbol of the cToken transferred"
     cTokenSymbol: String!
 }
@@ -205,7 +205,7 @@ type TransferEvent implements CTokenTransfer @entity {
     "Block number"
     blockNumber: Int!
     "Block time"
-    blockTime: Int!
+    blockTime: Date!
     "Symbol of the cToken transferred"
     cTokenSymbol: String!
 }
@@ -226,7 +226,7 @@ type MintEvent implements CTokenTransfer @entity {
     "Block number"
     blockNumber: Int!
     "Block time"
-    blockTime: Int!
+    blockTime: Date!
     "Symbol of the cToken transferred"
     cTokenSymbol: String!
     "Underlying token amount transferred"
@@ -249,7 +249,7 @@ type RedeemEvent implements CTokenTransfer @entity {
     "Block number"
     blockNumber: Int!
     "Block time"
-    blockTime: Int!
+    blockTime: Date!
     "Symbol of the cToken transferred"
     cTokenSymbol: String!
     "Underlying token amount transferred"
@@ -272,7 +272,7 @@ type LiquidationEvent implements CTokenTransfer @entity {
     "Block number"
     blockNumber: Int!
     "Block time"
-    blockTime: Int!
+    blockTime: Date!
     "cToken that was sezied as collateral"
     cTokenSymbol: String!
     "Symbol of the underlying asset repaid through liquidation"
@@ -297,7 +297,7 @@ interface UnderlyingTransfer {
     "Block number"
     blockNumber: Int!
     "Block time"
-    blockTime: Int!
+    blockTime: Date!
     "Symbol of the borrowed underlying asset"
     underlyingSymbol: String!
 }
@@ -317,7 +317,7 @@ type BorrowEvent implements UnderlyingTransfer @entity {
     "Block number"
     blockNumber: Int!
     "Block time"
-    blockTime: Int!
+    blockTime: Date!
     "Symbol of the borrowed underlying asset"
     underlyingSymbol: String!
 }
@@ -338,7 +338,7 @@ type RepayEvent implements UnderlyingTransfer @entity {
     "Block number"
     blockNumber: Int!
     "Block time"
-    blockTime: Int!
+    blockTime: Date!
     "Symbol of the borrowed underlying asset"
     underlyingSymbol: String!
     "Payer of the borrow funds"

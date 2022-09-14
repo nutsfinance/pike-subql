@@ -24,7 +24,7 @@ export class LiquidationEvent implements Entity {
 
     public blockNumber: number;
 
-    public blockTime: number;
+    public blockTime: Date;
 
     public cTokenSymbol: string;
 

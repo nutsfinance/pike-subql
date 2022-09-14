@@ -24,7 +24,7 @@ export class RedeemEvent implements Entity {
 
     public blockNumber: number;
 
-    public blockTime: number;
+    public blockTime: Date;
 
     public cTokenSymbol: string;
 

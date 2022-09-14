@@ -42,8 +42,10 @@ export async function getMarket(marketId: string): Promise<Market> {
         market.collateralFactor = BigInt(0);
         market.exchangeRate = BigInt(0);
         market.accrualBlockNumber = 0;
-        market.blockTimestamp = 0;
+        market.blockTimestamp = new Date();
         market.borrowIndex = BigInt(0);
+        market.numberOfBorrowers = 0;
+        market.numberOfSuppliers = 0;
 
         await market.save();
     }
