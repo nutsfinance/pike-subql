@@ -31,7 +31,7 @@ export async function getMarket(marketId: string): Promise<Market> {
         market.underlyingName = await underlying.name();
         market.underlyingSymbol = await underlying.symbol();
         market.underlyingDecimals = parseInt((await underlying.decimals()).toString());
-        market.underlyingPriceUSD = BigInt(0);
+        market.underlyingPrice = BigInt(0);
 
         market.borrowRate = BigInt(0);
         market.supplyRate = BigInt(0);
