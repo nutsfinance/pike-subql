@@ -2,7 +2,7 @@
 
 // Auto-generated , DO NOT EDIT
 
-export {Comptroller} from "./Comptroller"
+export {Controller} from "./Controller"
 
 export {Market} from "./Market"
 

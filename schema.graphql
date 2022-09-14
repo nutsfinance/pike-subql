@@ -1,7 +1,7 @@
 """
 The Comptroller type has protocol level variables stored
 """
-type Comptroller @entity {
+type Controller @entity {
     "ID is set to 1 since there is only one Comptroller"
     id: ID!
     "Address of price oracle the comptroller uses"
