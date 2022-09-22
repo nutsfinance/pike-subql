@@ -1,13 +1,13 @@
-import { Account, Controller, Market } from "../types";
+import { Account, Comptroller, Market } from "../types";
 import { ethers } from 'ethers';
 import CTokenAbi from '../abis/CToken.abi.json';
 import ERC20Abi from '../abis/ERC20.abi.json';
 import FrontierEthProvider from '@subql/acala-evm-processor/dist/acalaEthProvider';
 
-export async function getComptroller(comptrollerId: string): Promise<Controller> {
-    let comptroller = await Controller.get(comptrollerId);
+export async function getComptroller(comptrollerId: string): Promise<Comptroller> {
+    let comptroller = await Comptroller.get(comptrollerId);
     if (!comptroller) {
-        comptroller = new Controller(comptrollerId);
+        comptroller = new Comptroller(comptrollerId);
         await comptroller.save();
     }
 
