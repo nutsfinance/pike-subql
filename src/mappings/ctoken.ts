@@ -166,7 +166,7 @@ export async function handleTransfer(event: AcalaEvmEvent<TransferEventArgs>): P
     let cTokenStatsFrom = await updateCommonCTokenStats(
       market.id,
       market.symbol,
-      accountFromId,
+      accountFrom.id,
       event.transactionHash,
       event.blockTimestamp,
       event.blockNumber,
@@ -198,7 +198,7 @@ export async function handleTransfer(event: AcalaEvmEvent<TransferEventArgs>): P
     let cTokenStatsTo = await updateCommonCTokenStats(
       market.id,
       market.symbol,
-      accountToId,
+      accountTo.id,
       event.transactionHash,
       event.blockTimestamp,
       event.blockNumber,
